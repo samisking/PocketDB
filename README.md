@@ -18,11 +18,13 @@ import { PocketDB } from 'pocketdb';
 const db = new PocketDB('./db');
 ```
 
-## Usage
+## API
 
 Every method on `PocketDB` should return a promise with some data so you can chain operations.
 
-### Collections
+### Load Collections
+
+**db.loadCollection([collection])**
 
 Collections are the main way you interact with Pocket. You first load a collection and add items to it. If a collection doesn't exist, a new one will be created. This will make a new `${collectionName}.db` file inside the DB folder you create.
 
@@ -40,11 +42,7 @@ The contents of `./db/photos.db` will now look something like this:
 {"path":"./db/photos.db","name":"photos","nextID":1,"items":[]}
 ```
 
-### Items
-
-You insert 'things' into the items array within a collection, and when you read from a collection, a list of items will be returned.
-
-#### Inserting
+### Inserting Items
 
 **db.insert([collection, {data}])**
 
@@ -54,7 +52,7 @@ Inserting a new item will automatically increment the ID. If you'd like to overw
 db.insert('photos', { name: 'Jon Doe', age: 24 }).then(insertedItem => {});
 ```
 
-#### Querying
+### Finding Items
 
 **db.find([collection, {query}])**
 
@@ -95,7 +93,7 @@ db.find('collection', { age: 51 }).then(result => {
 
 The same as `.find()` but it just returns the first result.
 
-#### Updating
+### Updating Items
 
 **db.update([collection, id, {data}])**
 
@@ -105,7 +103,7 @@ Updates an item with a given id (id will soon be replaced with a query similar t
 db.update('photos', 1, { name: 'Sally' }).then(updatedItem => {});
 ```
 
-#### Deleting
+### Deleting Items
 
 **db.remove([collection, id])**
 
