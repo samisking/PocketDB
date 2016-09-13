@@ -1,6 +1,6 @@
 {
   "name": "pocketdb",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A small ES6 class based DB that saves to disk.",
   "main": "lib/pocketdb.js",
   "scripts": {
@@ -19,7 +19,7 @@
     "es6"
   ],
   "engines": {
-    "node" : ">6.2.0"
+    "node": ">6.2.0"
   },
   "author": "Sam King",
   "license": "MIT"
