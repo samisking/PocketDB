@@ -1,0 +1,26 @@
+{
+  "name": "pocketdb",
+  "version": "0.0.0",
+  "description": "A small ES6 class based DB that saves to disk.",
+  "main": "lib/pocketdb.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "homepage": "https://github.com/samisking/PocketDB",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:samisking/PocketDB.git"
+  },
+  "keywords": [
+    "db",
+    "database",
+    "pocket",
+    "javascript",
+    "es6"
+  ],
+  "engines": {
+    "node" : ">6.2.0"
+  },
+  "author": "Sam King",
+  "license": "MIT"
+}
