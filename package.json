@@ -1,6 +1,6 @@
 {
   "name": "pocketdb",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A small ES6 class based DB that saves to disk.",
   "main": "lib/pocketdb.js",
   "scripts": {
