@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { PocketDB } = require('../lib/pocketdb');
+const { PocketDB } = require('../index');
 
 const getFilesizeInBytes = (filename) => {
   const stats = fs.statSync(filename)
@@ -22,74 +22,74 @@ for (let i = 0; i < x; i++) {
 };
 
 const dbPath = path.resolve(__dirname, 'testdb');
+
 const db = new PocketDB(dbPath);
+const collection = db.loadCollection('documents');
 
-db.loadCollection('documents').then(() => {
-  console.log(`--- Test for ${x} documents ---`);
+console.log(`--- Test for ${x} documents ---`);
 
-  // This test is slow because of the for loop.
-  // If you want to insert a lot of documents, use .insertMany().
-  //
-  // console.time('.insert() - For Loop');
-  // for (let i = 0, len = documents.length; i < len; i++) {
-  //   db.insert('documents', documents[i]);
-  // }
-  // console.timeEnd('.insert() - For Loop');
+// This test is slow because of the for loop.
+// If you want to insert a lot of documents, use .insertMany().
+//
+// console.time('collection.insert() - For Loop');
+// for (let i = 0, len = documents.length; i < len; i++) {
+//   db.insert(documents[i]);
+// }
+// console.timeEnd('collection.insert() - For Loop');
 
-  console.time('.insertMany()');
-  db.insertMany('documents', documents);
-  console.timeEnd('.insertMany()');
+console.time('collection.insertMany()');
+collection.insertMany(documents);
+console.timeEnd('collection.insertMany()');
 
-  console.time('.find()');
-  db.find('documents');
-  console.timeEnd('.find()');
+console.time('collection.find()');
+collection.find('documents');
+console.timeEnd('collection.find()');
 
-  const query = { published: `today ${Math.ceil(x / 2)}`};
-  console.time(`.find(${JSON.stringify(query)})`);
-  db.find('documents', query);
-  console.timeEnd(`.find(${JSON.stringify(query)})`);
+const query = { published: `today ${Math.ceil(x / 2)}`};
+console.time(`collection.find(${JSON.stringify(query)})`);
+collection.find(query);
+console.timeEnd(`collection.find(${JSON.stringify(query)})`);
 
-  const options = { sort: 'rating' };
-  console.time(`.find({}, ${JSON.stringify(options)})`);
-  db.find('documents', {}, options);
-  console.timeEnd(`.find({}, ${JSON.stringify(options)})`);
+const options = { sort: 'rating' };
+console.time(`collection.find({}, ${JSON.stringify(options)})`);
+collection.find({}, options);
+console.timeEnd(`collection.find({}, ${JSON.stringify(options)})`);
 
-  console.time('.findOne()');
-  db.findOne('documents');
-  console.timeEnd('.findOne()');
+console.time('collection.findOne()');
+collection.findOne('documents');
+console.timeEnd('collection.findOne()');
 
-  console.time(`.findOne(${JSON.stringify(query)})`);
-  db.findOne('documents', { published: `today ${Math.ceil(x / 2)}`});
-  console.timeEnd(`.findOne(${JSON.stringify(query)})`);
+console.time(`collection.findOne(${JSON.stringify(query)})`);
+collection.findOne({ published: `today ${Math.ceil(x / 2)}`});
+console.timeEnd(`collection.findOne(${JSON.stringify(query)})`);
 
-  console.time(`.findOne({}, ${JSON.stringify(options)})`);
-  db.findOne('documents', {}, options);
-  console.timeEnd(`.findOne({}, ${JSON.stringify(options)})`);
+console.time(`collection.findOne({}, ${JSON.stringify(options)})`);
+collection.findOne({}, options);
+console.timeEnd(`collection.findOne({}, ${JSON.stringify(options)})`);
 
-  console.time('.count()');
-  db.count('documents');
-  console.timeEnd('.count()');
+console.time('collection.count()');
+collection.count('documents');
+console.timeEnd('collection.count()');
 
-  const id = Math.ceil(x / 2);
-  const update = Object.assign({}, documents[id - 1], { published: `tomorrow ${Math.ceil(x / 2)}`});
-  console.time(`.update(${JSON.stringify(update)})`);
-  db.update('documents', id, update);
-  console.timeEnd(`.update(${JSON.stringify(update)})`);
+const id = Math.ceil(x / 2);
+const update = Object.assign({}, documents[id - 1], { published: `tomorrow ${Math.ceil(x / 2)}`});
+console.time(`collection.update(${JSON.stringify(update)})`);
+collection.update(id, update);
+console.timeEnd(`collection.update(${JSON.stringify(update)})`);
 
-  console.time(`.remove(${id})`);
-  db.remove('documents', id);
-  console.timeEnd(`.remove(${id})`);
+console.time(`collection.remove(${id})`);
+collection.remove(id);
+console.timeEnd(`collection.remove(${id})`);
 
-  console.time('.insert() - Single document');
-  db.insert('documents', documents[0]);
-  console.timeEnd('.insert() - Single document');
+console.time('collection.insert() - Single document');
+collection.insert(documents[0]);
+console.timeEnd('collection.insert() - Single document');
 
-  const collectionPath = `${dbPath}/documents.db`;
-  console.log(`File size before deletion : ${getFilesizeInBytes(collectionPath)}`);
+const collectionPath = `${dbPath}/documents.db`;
+console.log(`File size before deletion : ${getFilesizeInBytes(collectionPath)}`);
 
-  console.time('.removeCollection()');
-  db.removeCollection('documents');
-  console.timeEnd('.removeCollection()');
+console.time('db.removeCollection()');
+db.removeCollection('documents');
+console.timeEnd('db.removeCollection()');
 
-  console.log(`--- Test for ${x} documents ---`);
-});
+console.log(`--- Test for ${x} documents ---`);
