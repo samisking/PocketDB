@@ -80,6 +80,10 @@ db.loadCollection('documents').then(() => {
   db.remove('documents', id);
   console.timeEnd(`.remove(${id})`);
 
+  console.time('.insert() - Single document');
+  db.insert('documents', documents[0]);
+  console.timeEnd('.insert() - Single document');
+
   const collectionPath = `${dbPath}/documents.db`;
   console.log(`File size before deletion : ${getFilesizeInBytes(collectionPath)}`);
 
