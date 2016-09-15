@@ -1,3 +1,26 @@
+## 1.0.3 (2016-09-15)
+
+Features:
+
+ - Minor version bump.
+ - Added [Array.filter.() callback function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter#Parameters) to all methods that accept a `{query}` object.
+ - Updated benchmarking script.
+ - Updated README.
+
+## 1.0.2 (2016-09-15)
+
+Features:
+
+ - Minor version bump.
+ - Updated README.
+
+## 1.0.1 (2016-09-15)
+
+Features:
+
+ - Minor version bump.
+ - Updated README.
+
 ## 1.0.0 (2016-09-15)
 
 Features:
