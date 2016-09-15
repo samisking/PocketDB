@@ -2,7 +2,7 @@
   "name": "pocketdb",
   "version": "1.0.1",
   "description": "A small ES6 class based DB that saves to disk.",
-  "main": "index.js",
+  "main": "lib/pocketdb.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
