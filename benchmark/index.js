@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { PocketDB } = require('../lib/pocketdb');
+const { PocketDB, Collection } = require('../lib');
 
 const getFilesizeInBytes = (filename) => {
   const stats = fs.statSync(filename)
@@ -24,9 +24,7 @@ for (let i = 0; i < x; i++) {
 const dbPath = path.resolve(__dirname, 'testdb');
 
 const db = new PocketDB(dbPath);
-const collection = db.loadCollection('documents');
-
-console.log(`--- Test for ${x} documents ---`);
+const collection = new Collection(db, 'documents');
 
 const collectionPath = `${dbPath}/documents.db`;
 const queryID = Math.ceil(x / 2);
@@ -38,6 +36,8 @@ const updateReq = Object.assign({}, documents[queryID - 1], { published: `tomorr
 const updateFunction = i => i.published === `today ${queryID}`;
 const removeQuery = { title: `PocketDB FTW ${queryID - 1}`};
 const removeFunction = i => i.id === queryID - 2;
+
+console.log(`--- Test for ${x} documents ---`);
 
 // This test is slow because of the for loop.
 // If you want to insert a lot of documents, use .insert().

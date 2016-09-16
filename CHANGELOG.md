@@ -1,8 +1,20 @@
-## 1.0.3 (2016-09-15)
+## 1.1.0 (2016-09-17)
 
 Features:
 
  - Minor version bump.
+ - Changed the way collections are created. You now create a new instance of the `Collection` class instead of calling `.loadCollection` on a `PocketDB` instance. This means you can extend functionality of the collection like adding your own static methods etc. For more info on using the new `Collection`'s, check out the [README](./README.md#creating-a-collection).
+ - Added some hook methods that are called before/after certain PocketDB operations. [See more about hooks](./README.md#hooks).
+ - Added read-only listeners that are called before/after certain PocketDB operations. [See more about listeners](./README.md#listeners).
+ - Added `.remove()` method for removing many items at once.
+ - Updated benchmarking script.
+ - Updated README.
+
+## 1.0.3 (2016-09-15)
+
+Features:
+
+ - Patch version bump.
  - Added [Array.filter.() callback function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter#Parameters) to all methods that accept a `{query}` object.
  - Updated benchmarking script.
  - Updated README.
@@ -11,14 +23,14 @@ Features:
 
 Features:
 
- - Minor version bump.
+ - Patch version bump.
  - Updated README.
 
 ## 1.0.1 (2016-09-15)
 
 Features:
 
- - Minor version bump.
+ - Patch version bump.
  - Updated README.
 
 ## 1.0.0 (2016-09-15)
@@ -40,7 +52,7 @@ Features:
 
 Features:
 
- - Minor version bump.
+ - Patch version bump.
  - Added `{options}` object to all `.find()` style methods so you can now sort the results you get back.
  - Added `.insertMany()` to insert many items faster.
  - Added `.count()` to count items in a collection without reading from the db file.
@@ -52,7 +64,7 @@ Features:
 
 Features:
 
- - Minor version bump.
+ - Patch version bump.
  - Updated README.
  - Added CHANGELOG.
 
