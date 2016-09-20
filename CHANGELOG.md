@@ -1,4 +1,4 @@
-## 1.1.1 (2016-09-20)
+## 1.1.2 (2016-09-20)
 
 Features:
 
@@ -6,6 +6,14 @@ Features:
  - Added tests with Jest — 100% test coverage 🎉.
  - Added linting with ESLint.
  - Updated README.
+
+## 1.1.1 (2016-09-20)
+
+Features:
+
+ - Patch version bump.
+ - Fixed the order in which hooks/listeners get called.
+ - Changed what data gets emitted to listeners.
 
 ## 1.1.0 (2016-09-17)
 
