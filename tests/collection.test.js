@@ -117,7 +117,7 @@ describe('the collection', () => {
 
     return collection.insert({ name: 'Sam' })
       .catch(err => {
-        expect(err).toEqual('You must pass a valid array to `.insert()`.');
+        expect(err.toString()).toEqual('Error: You must pass a valid array to `.insert()`.');
       });
   });
 
@@ -162,7 +162,7 @@ describe('the collection', () => {
     return collection.insert(insertItems)
       .then(() => collection.updateOne())
       .catch(err => {
-        expect(err).toEqual('You must specify a query to update an item.');
+        expect(err.toString()).toEqual('Error: You must specify a query to update an item.');
       });
   });
 
@@ -172,7 +172,7 @@ describe('the collection', () => {
     return collection.insert(insertItems)
       .then(() => collection.updateOne(i => i.d === 100, { name: 'Sam' }))
       .catch(err => {
-        expect(err).toEqual('Didn\'t find any items to update.');
+        expect(err.toString()).toEqual('Error: Didn\'t find any items to update.');
       });
   });
 
@@ -200,7 +200,7 @@ describe('the collection', () => {
     return collection.insert(insertItems)
       .then(() => collection.removeOne())
       .catch(err => {
-        expect(err).toEqual('You must specify a query to remove an item.');
+        expect(err.toString()).toEqual('Error: You must specify a query to remove an item.');
       });
   });
 
@@ -210,7 +210,7 @@ describe('the collection', () => {
     return collection.insert(insertItems)
       .then(() => collection.removeOne(i => i.id === 100))
       .catch(err => {
-        expect(err).toEqual('Didn\'t find any items to remove.');
+        expect(err.toString()).toEqual('Error: Didn\'t find any items to remove.');
       });
   });
 
@@ -235,7 +235,7 @@ describe('the collection', () => {
     return collection.insert(insertItems)
       .then(() => collection.remove(i => i.d > 100))
       .catch(err => {
-        expect(err).toEqual('Didn\'t find any items to remove.');
+        expect(err.toString()).toEqual('Error: Didn\'t find any items to remove.');
       });
   });
 
