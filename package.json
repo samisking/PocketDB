@@ -4,6 +4,7 @@
   "description": "A small ES6 class based DB that saves to disk.",
   "main": "lib/index.js",
   "scripts": {
+    "lint": "eslint --ignore-path .gitignore .",
     "test": "jest"
   },
   "homepage": "https://github.com/samisking/PocketDB",
@@ -28,6 +29,8 @@
   "author": "Sam King",
   "license": "MIT",
   "devDependencies": {
+    "eslint": "^3.2.2",
+    "eslint-config-airbnb": "^10.0.0",
     "jest": "^15.1.1"
   }
 }
