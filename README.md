@@ -308,6 +308,6 @@ Below is an average of a few tests run on a 2014 MacBook Pro with a 2.8 GHz Inte
 
 ## TODO
 
-- [ ] TESTS!
+- [x] TESTS!
 - [x] Make collections simpler to interact with.
 - [x] Make `.remove()` use a query like `collection.find()`.

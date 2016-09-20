@@ -1,3 +1,12 @@
+## 1.1.1 (2016-09-20)
+
+Features:
+
+ - Patch version bump.
+ - Added tests with Jest — 100% test coverage 🎉.
+ - Added linting with ESLint.
+ - Updated README.
+
 ## 1.1.0 (2016-09-17)
 
 Features:
