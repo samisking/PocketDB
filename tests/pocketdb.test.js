@@ -20,7 +20,7 @@ beforeEach(() => {
 describe('the db', () => {
   it('should initialise the db correctly', () => {
     const collection = new Collection(db, collectionName);
-    expect(collection.dbPath).toEqual(dbPath);
+    expect(collection.name).toEqual(collectionName);
 
     // Expect the new db to be created
     expect(db.dbPath).toEqual(dbPath);
@@ -59,7 +59,7 @@ describe('the db', () => {
 
   it('should remove collections properly', () => {
     const collection = new Collection(db, collectionName);
-    expect(collection.dbPath).toEqual(dbPath);
+    expect(collection.name).toEqual(collectionName);
 
     expect(db.db[collectionName]).toBeDefined();
     db.removeCollection(collectionName).then(() => {});
