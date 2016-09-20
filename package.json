@@ -21,6 +21,10 @@
   "engines": {
     "node": ">6.2.0"
   },
+  "jest": {
+    "coverageDirectory": "./tests/coverage",
+    "collectCoverage": true
+  },
   "author": "Sam King",
   "license": "MIT",
   "devDependencies": {
