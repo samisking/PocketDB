@@ -54,6 +54,21 @@ describe('the collection', () => {
         expect(res[0].name).toEqual('Lisa');
         expect(res[1].name).toEqual('John');
         expect(res[2].name).toEqual('Doug');
+        expect(res[3].name).toEqual('Amie');
+      });
+  });
+
+  it('should find and sort all items in reverse', () => {
+    const collection = new Collection(db, collectionName);
+
+    return collection.insert(insertItems)
+      .then(() => collection.find({}, { sort: '-age' }))
+      .then(res => {
+        expect(res.length).toEqual(4);
+        expect(res[0].name).toEqual('Amie');
+        expect(res[1].name).toEqual('John');
+        expect(res[2].name).toEqual('Doug');
+        expect(res[3].name).toEqual('Lisa');
       });
   });
 

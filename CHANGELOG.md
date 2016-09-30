@@ -1,3 +1,11 @@
+## 1.1.3 (2016-09-30)
+
+Features:
+
+ - Patch version bump.
+ - Added reverse sorting.
+ - Updated README.
+
 ## 1.1.2 (2016-09-20)
 
 Features:

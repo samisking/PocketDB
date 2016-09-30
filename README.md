@@ -82,7 +82,7 @@ collection.insert(items).then(insertedItems => {});
 Find all items that match a certain query object or [.filter() callback](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter#Parameters). If you supply a `{query}` object, only items that match _all_ of the key/value pairs in your `{query}` will be returned. If a query isn't specified, or it's empty, then all items in the collection are returned.
 
 You can also pass options to the query. Currently the supported options are:
-- `sort: 'key'`: This will sort the items returned by the key you provide.
+- `sort: '(-)key'`: This will sort the items returned by the key you provide. If your key starts with `-` then the order will be reversed.
 
 ```js
 // If our collection.items looked like this…
@@ -111,6 +111,13 @@ collection.find({ age: 24, profession: 'Designer' }).then(result => {
 });
 
 collection.find({ profession: 'Developer' }, { sort: 'age' }).then(result => {
+  // result = [
+  //   { id: 2, name: 'Lisa', age: 28, profession: 'Developer' },
+  //   { id: 3, name: 'Amie', age: 22, profession: 'Developer' }
+  // ]
+});
+
+collection.find({ profession: 'Developer' }, { sort: '-age' }).then(result => {
   // result = [
   //   { id: 3, name: 'Amie', age: 22, profession: 'Developer' },
   //   { id: 2, name: 'Lisa', age: 28, profession: 'Developer' }
