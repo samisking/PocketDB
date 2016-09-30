@@ -112,15 +112,15 @@ collection.find({ age: 24, profession: 'Designer' }).then(result => {
 
 collection.find({ profession: 'Developer' }, { sort: 'age' }).then(result => {
   // result = [
-  //   { id: 2, name: 'Lisa', age: 28, profession: 'Developer' },
-  //   { id: 3, name: 'Amie', age: 22, profession: 'Developer' }
+  //   { id: 3, name: 'Amie', age: 22, profession: 'Developer' },
+  //   { id: 2, name: 'Lisa', age: 28, profession: 'Developer' }
   // ]
 });
 
 collection.find({ profession: 'Developer' }, { sort: '-age' }).then(result => {
   // result = [
-  //   { id: 3, name: 'Amie', age: 22, profession: 'Developer' },
-  //   { id: 2, name: 'Lisa', age: 28, profession: 'Developer' }
+  //   { id: 2, name: 'Lisa', age: 28, profession: 'Developer' },
+  //   { id: 3, name: 'Amie', age: 22, profession: 'Developer' }
   // ]
 });
 
