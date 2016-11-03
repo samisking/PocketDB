@@ -1,3 +1,11 @@
+## 1.1.5 (2016-11-03)
+
+Features:
+
+ - Patch version bump.
+ - Made sure CRUD operations always return a copy of the data so you can't mutate things by accident.
+ - Updated ESLint to use Jest globals.
+
 ## 1.1.4 (2016-09-30)
 
 Features:
