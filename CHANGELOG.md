@@ -1,3 +1,10 @@
+## 1.1.6 (2016-11-07)
+
+Features:
+
+ - Patch version bump.
+ - Remove the need to store db file paths in the file itself.
+
 ## 1.1.5 (2016-11-03)
 
 Features:
