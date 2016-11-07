@@ -1,1 +1,1 @@
-{"path":"/Users/Sam/Repos/pocketdb/tests/persistentTestDB/persistent.db","name":"persistent","nextID":3,"items":[{"id":1,"name":"John"},{"id":2,"name":"Lisa"}]}
+{"name":"persistent","nextID":3,"items":[{"id":1,"name":"John"},{"id":2,"name":"Lisa"}]}

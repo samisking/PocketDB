@@ -40,7 +40,7 @@ describe('the db', () => {
 
     // Load a new collection
     expect(collection.name).toBe(collectionName);
-    expect(collection._collection.path).toBe(`${dbPath}/${collectionName}.db`);
+    expect(collection.path).toBe(`${dbPath}/${collectionName}.db`);
     expect(db.db[collectionName]).toBeDefined();
     expect(Object.keys(db.db).length).toBe(1);
 
