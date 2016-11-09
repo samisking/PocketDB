@@ -32,5 +32,8 @@
     "eslint": "^3.2.2",
     "eslint-config-airbnb": "^10.0.0",
     "jest": "^15.1.1"
+  },
+  "dependencies": {
+    "atomic-write": "^0.1.1"
   }
 }

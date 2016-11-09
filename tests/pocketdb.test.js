@@ -3,25 +3,48 @@ const path = require('path');
 const { PocketDB, Collection } = require('../lib');
 
 // A mock db that gets removed after every test
-const dbPath = path.resolve(__dirname, 'db');
+const dbPath = path.resolve(__dirname, 'test-db');
 const db = new PocketDB(dbPath);
-const collectionName = 'db-test';
+const collectionName = 'test-db';
 
 // A mock db that doesn't get removed after each test
 const persistentTestDB = new PocketDB(path.resolve(__dirname, 'persistentTestDB'));
 const persistentCollectionName = 'persistent';
 
-// Reset the module cache after each test
+let collection;
+let testCollectionName;
+let testIndex = 0;
+
+// Reset the module cache and create a new collection to be used for the test
 beforeEach(() => {
   jest.resetModules();
+
+  testIndex++;
+  testCollectionName = `${collectionName}-${testIndex}`;
+  collection = new Collection(db, testCollectionName);
+});
+
+// Remove the collection after each test
+afterEach(() => {
+  if (db.db[testCollectionName]) {
+    db.removeCollection(testCollectionName);
+  }
+});
+
+// Clean up all the test databases when we're done
+afterAll(() => {
+  if (fs.existsSync(dbPath)) {
+    fs.readdirSync(dbPath).forEach((file) => {
+      fs.unlinkSync(path.resolve(dbPath, file));
+    });
+
+    fs.rmdirSync(dbPath);
+  }
 });
 
 // The actual tests
 describe('the db', () => {
   it('should initialise the db correctly', () => {
-    const collection = new Collection(db, collectionName);
-    expect(collection.name).toEqual(collectionName);
-
     // Expect the new db to be created
     expect(db.dbPath).toEqual(dbPath);
     expect(fs.existsSync(dbPath)).toBeTruthy();
@@ -36,17 +59,15 @@ describe('the db', () => {
   });
 
   it('should load collections properly', () => {
-    const collection = new Collection(db, collectionName);
-
     // Load a new collection
-    expect(collection.name).toBe(collectionName);
-    expect(collection.path).toBe(`${dbPath}/${collectionName}.db`);
-    expect(db.db[collectionName]).toBeDefined();
+    expect(collection.name).toEqual(testCollectionName);
+    expect(collection.path).toBe(`${dbPath}/${testCollectionName}.db`);
+    expect(db.db[testCollectionName]).toBeDefined();
     expect(Object.keys(db.db).length).toBe(1);
 
     // Test loading of an existing collection
     expect(() => {
-      new Collection(db, collectionName);
+      new Collection(db, testCollectionName);
     }).toThrow();
 
     expect(Object.keys(db.db).length).toBe(1);
@@ -58,21 +79,8 @@ describe('the db', () => {
   });
 
   it('should remove collections properly', () => {
-    const collection = new Collection(db, collectionName);
-    expect(collection.name).toEqual(collectionName);
-
-    expect(db.db[collectionName]).toBeDefined();
-    db.removeCollection(collectionName).then(() => {});
-    expect(db.db[collectionName]).toBeUndefined();
+    expect(db.db[testCollectionName]).toBeDefined();
+    db.removeCollection(testCollectionName);
+    expect(db.db[testCollectionName]).toBeUndefined();
   });
-});
-
-// Remove the non-persistent collection after each test,
-// along with the non-persistent db folder
-afterEach(() => {
-  db.removeCollection(collectionName).then(() => {});
-
-  if (fs.existsSync(dbPath)) {
-    fs.rmdirSync(dbPath);
-  }
 });
