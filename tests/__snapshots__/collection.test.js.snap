@@ -1,0 +1,128 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the collection should find using a query object with operators 1`] = `
+Array [
+  Object {
+    "age": 22,
+    "id": 1,
+    "name": "Amie",
+    "profession": "Developer",
+    "tags": Array [
+      "react",
+      "pocketdb",
+      "node",
+    ],
+  },
+]
+`;
+
+exports[`the collection should find using a query object with operators 2`] = `
+Array [
+  Object {
+    "age": 22,
+    "id": 1,
+    "name": "Amie",
+    "profession": "Developer",
+    "tags": Array [
+      "react",
+      "pocketdb",
+      "node",
+    ],
+  },
+  Object {
+    "age": 21,
+    "id": 2,
+    "name": "John",
+    "profession": "Designer",
+    "tags": Array [
+      "sketch",
+    ],
+  },
+  Object {
+    "age": 21,
+    "id": 4,
+    "name": "Doug",
+    "profession": "Developer",
+  },
+]
+`;
+
+exports[`the collection should find using a query object with operators 3`] = `
+Array [
+  Object {
+    "age": 22,
+    "id": 1,
+    "name": "Amie",
+    "profession": "Developer",
+    "tags": Array [
+      "react",
+      "pocketdb",
+      "node",
+    ],
+  },
+  Object {
+    "age": 19,
+    "id": 3,
+    "name": "Lisa",
+    "profession": "Developer",
+    "tags": Array [
+      "react",
+      "node",
+    ],
+  },
+]
+`;
+
+exports[`the collection should find using a query object with operators 4`] = `
+Array [
+  Object {
+    "age": 21,
+    "id": 2,
+    "name": "John",
+    "profession": "Designer",
+    "tags": Array [
+      "sketch",
+    ],
+  },
+]
+`;
+
+exports[`the collection should find using a query object with operators 5`] = `
+Array [
+  Object {
+    "age": 21,
+    "id": 2,
+    "name": "John",
+    "profession": "Designer",
+    "tags": Array [
+      "sketch",
+    ],
+  },
+  Object {
+    "age": 19,
+    "id": 3,
+    "name": "Lisa",
+    "profession": "Developer",
+    "tags": Array [
+      "react",
+      "node",
+    ],
+  },
+]
+`;
+
+exports[`the collection should find using a query object with operators 6`] = `
+Array [
+  Object {
+    "age": 22,
+    "id": 1,
+    "name": "Amie",
+    "profession": "Developer",
+    "tags": Array [
+      "react",
+      "pocketdb",
+      "node",
+    ],
+  },
+]
+`;

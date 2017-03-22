@@ -12,17 +12,20 @@ const insertItems = [
   {
     name: 'Amie',
     age: 22,
-    profession: 'Developer'
+    profession: 'Developer',
+    tags: ['react', 'pocketdb', 'node']
   },
   {
     name: 'John',
     age: 21,
-    profession: 'Designer'
+    profession: 'Designer',
+    tags: ['sketch']
   },
   {
     name: 'Lisa',
     age: 19,
-    profession: 'Developer'
+    profession: 'Developer',
+    tags: ['react', 'node']
   },
   {
     name: 'Doug',
@@ -106,6 +109,22 @@ describe('the collection', () => {
         expect(res.length).toEqual(1);
         expect(res[0].name).toEqual('Amie');
       })
+  );
+
+  it('should find using a query object with operators', () =>
+    collection.insert(insertItems)
+      .then(() => collection.find({ age: { $gt: 21, $lt: 23 } }))
+      .then(res => expect(res).toMatchSnapshot())
+      .then(() => collection.find({ age: { $gte: 21, $lte: 25 } }))
+      .then(res => expect(res).toMatchSnapshot())
+      .then(() => collection.find({ age: { $ne: 21 } }))
+      .then(res => expect(res).toMatchSnapshot())
+      .then(() => collection.find({ tags: { $in: 'sketch' } }))
+      .then(res => expect(res).toMatchSnapshot())
+      .then(() => collection.find({ tags: { $nin: 'pocketdb' } }))
+      .then(res => expect(res).toMatchSnapshot())
+      .then(() => collection.find({ tags: { $length: 3 } }))
+      .then(res => expect(res).toMatchSnapshot())
   );
 
   it('should find one item using a filter function', () =>
