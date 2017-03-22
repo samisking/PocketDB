@@ -7,7 +7,7 @@
 ## Install
 
 ```
-yarn install --save pocketdb
+yarn add pocketdb
 ```
 
 The packages include ES modules for Webpack 2 and Rollup, and CommonJS modules for Node > 6.
