@@ -63,275 +63,238 @@ afterAll(() => {
 
 // The actual tests
 describe('the collection', () => {
-  it('should throw when connecting to an invalid PocketDB instance', () => {
-    expect(() => {
-      new Collection('not-a-db', 'fake-collection');
-    }).toThrowError(TypeError);
+  describe('init', () => {
+    it('should throw when connecting to an invalid PocketDB instance', () => {
+      expect(() => {
+        new Collection('not-a-db', 'fake-collection');
+      }).toThrowError(TypeError);
+    });
   });
 
-  it('should find and sort all items', () =>
-    collection.insert(insertItems)
-      .then(() => collection.find({}, { sort: 'age' }))
-      .then(res => {
-        expect(res.length).toEqual(4);
-        expect(res[0].name).toEqual('Lisa');
-        expect(res[1].name).toEqual('John');
-        expect(res[2].name).toEqual('Doug');
-        expect(res[3].name).toEqual('Amie');
-      })
-  );
+  describe('find()', () => {
+    it('should find and sort all items', () =>
+      collection.insert(insertItems)
+        .then(() => collection.find({}, { sort: 'age' }))
+        .then(res => expect(res).toMatchSnapshot())
+    );
 
-  it('should find and sort all items in reverse', () =>
-    collection.insert(insertItems)
-      .then(() => collection.find({}, { sort: '-age' }))
-      .then(res => {
-        expect(res.length).toEqual(4);
-        expect(res[0].name).toEqual('Amie');
-        expect(res[1].name).toEqual('John');
-        expect(res[2].name).toEqual('Doug');
-        expect(res[3].name).toEqual('Lisa');
-      })
-  );
+    it('should find and sort all items in reverse', () =>
+      collection.insert(insertItems)
+        .then(() => collection.find({}, { sort: '-age' }))
+        .then(res => expect(res).toMatchSnapshot())
+    );
 
-  it('should find using a filter function', () =>
-    collection.insert(insertItems)
-      .then(() => collection.find(i => i.age < 21))
-      .then(res => {
-        expect(res.length).toEqual(1);
-        expect(res[0].name).toEqual('Lisa');
-      })
-  );
+    it('should find using a filter function', () =>
+      collection.insert(insertItems)
+        .then(() => collection.find(i => i.age < 21))
+        .then(res => expect(res).toMatchSnapshot())
+    );
 
-  it('should find using a query object', () =>
-    collection.insert(insertItems)
-      .then(() => collection.find({ name: 'Amie' }))
-      .then(res => {
-        expect(res.length).toEqual(1);
-        expect(res[0].name).toEqual('Amie');
-      })
-  );
+    it('should find using a query object', () =>
+      collection.insert(insertItems)
+        .then(() => collection.find({ name: 'Amie' }))
+        .then(res => expect(res).toMatchSnapshot())
+    );
 
-  it('should find using a query object with operators', () =>
-    collection.insert(insertItems)
-      .then(() => collection.find({ age: { $gt: 21, $lt: 23 } }))
-      .then(res => expect(res).toMatchSnapshot())
-      .then(() => collection.find({ age: { $gte: 21, $lte: 25 } }))
-      .then(res => expect(res).toMatchSnapshot())
-      .then(() => collection.find({ age: { $ne: 21 } }))
-      .then(res => expect(res).toMatchSnapshot())
-      .then(() => collection.find({ tags: { $in: 'sketch' } }))
-      .then(res => expect(res).toMatchSnapshot())
-      .then(() => collection.find({ tags: { $nin: 'pocketdb' } }))
-      .then(res => expect(res).toMatchSnapshot())
-      .then(() => collection.find({ tags: { $length: 3 } }))
-      .then(res => expect(res).toMatchSnapshot())
-  );
-
-  it('should find one item using a filter function', () =>
-    collection.insert(insertItems)
-      .then(() => collection.findOne(i => i.profession === 'Developer'))
-      .then(res => {
-        expect(res.name).toEqual('Amie');
-      })
-  );
-
-  it('should find one item using a query object', () =>
-    collection.insert(insertItems)
-      .then(() => collection.findOne({ profession: 'Developer' }, { sort: 'age' }))
-      .then(res => {
-        expect(res.name).toEqual('Lisa');
-      })
-  );
-
-  it('should insert many items', () =>
-    collection.insert(insertItems)
-      .then((inserted) => {
-        expect(inserted.length).toEqual(insertItems.length);
-        expect(inserted[3].id).toEqual(4);
-        return collection.find();
-      }).then(allItems => {
-        expect(allItems.length).toEqual(4);
-      })
-  );
-
-  it('should not insert many items if not passed an array', () =>
-    collection.insert({ name: 'Sam' })
-      .catch(err => {
-        expect(err.toString()).toEqual('Error: You must pass a valid array to `.insert()`.');
-      })
-  );
-
-  it('should insert one item', () =>
-    collection.insertOne({ name: 'Sally', age: 21, profession: 'Designer' })
-      .then(inserted => {
-        expect(inserted.id).toEqual(1);
-        return collection.find();
-      })
-      .then(allItems => {
-        expect(allItems.length).toEqual(1);
-      })
-  );
-
-  it('should update one item using a filter function', () =>
-    collection.insert(insertItems)
-      .then(() => collection.updateOne(i => i.id === 1, { name: 'Sam' }))
-      .then(updated => {
-        expect(updated.id).toEqual(1);
-        expect(updated.name).toEqual('Sam');
-      })
-  );
-
-  it('should update one item using a query object', () =>
-    collection.insert(insertItems)
-      .then(() => collection.updateOne({ name: 'Amie' }, { name: 'Sam' }))
-      .then(res => {
-        expect(res.id).toEqual(1);
-        expect(res.name).toEqual('Sam');
-      })
-  );
-
-  it('should error when updating without a query', () =>
-    collection.insert(insertItems)
-      .then(() => collection.updateOne())
-      .catch(err => {
-        expect(err.toString()).toEqual('Error: You must specify a query to update an item.');
-      })
-  );
-
-  it('should error when no items were found to update', () =>
-    collection.insert(insertItems)
-      .then(() => collection.updateOne(i => i.d === 100, { name: 'Sam' }))
-      .catch(err => {
-        expect(err.toString()).toEqual('Error: Didn\'t find any items to update.');
-      })
-  );
-
-  it('should remove items', () =>
-    collection.insert(insertItems)
-      .then(() => collection.find())
-      .then(found => {
-        expect(found.length).toEqual(4);
-        return collection.removeOne(i => i.id === 1);
-      })
-      .then(removed => {
-        expect(removed.id).toEqual(1);
-        return collection.find();
-      })
-      .then(found => {
-        expect(found.length).toEqual(3);
-      })
-  );
-
-  it('should error when trying to remove without a query', () =>
-    collection.insert(insertItems)
-      .then(() => collection.removeOne())
-      .catch(err => {
-        expect(err.toString()).toEqual('Error: You must specify a query to remove an item.');
-      })
-  );
-
-  it('should error when no items were found to remove', () =>
-    collection.insert(insertItems)
-      .then(() => collection.removeOne(i => i.id === 100))
-      .catch(err => {
-        expect(err.toString()).toEqual('Error: Didn\'t find any items to remove.');
-      })
-  );
-
-  it('should remove multiple items', () => {
-    const extraItems = [{ name: 'Nora', age: 40 }, { name: 'Doug', age: 22 }];
-
-    return collection.insert(insertItems.concat(extraItems))
-      .then(() => collection.remove(i => i.age > 21))
-      .then(res => {
-        expect(res.length).toEqual(3);
-        return collection.find();
-      })
-      .then(res => {
-        expect(res.length).toEqual(3);
-      });
+    it('should find using a query object with operators', () =>
+      collection.insert(insertItems)
+        .then(() => collection.find({ age: { $gt: 21, $lt: 23 } }))
+        .then(res => expect(res).toMatchSnapshot())
+        .then(() => collection.find({ age: { $gte: 21, $lte: 25 } }))
+        .then(res => expect(res).toMatchSnapshot())
+        .then(() => collection.find({ age: { $ne: 21 } }))
+        .then(res => expect(res).toMatchSnapshot())
+        .then(() => collection.find({ tags: { $in: 'sketch' } }))
+        .then(res => expect(res).toMatchSnapshot())
+        .then(() => collection.find({ tags: { $nin: 'pocketdb' } }))
+        .then(res => expect(res).toMatchSnapshot())
+        .then(() => collection.find({ tags: { $length: 3 } }))
+        .then(res => expect(res).toMatchSnapshot())
+    );
   });
 
-  it('should error when removing non-existing items', () =>
-    collection.insert(insertItems)
-      .then(() => collection.remove(i => i.d > 100))
-      .catch(err => {
-        expect(err.toString()).toEqual('Error: Didn\'t find any items to remove.');
-      })
-  );
+  describe('findOne()', () => {
+    it('should find one item using a filter function', () =>
+      collection.insert(insertItems)
+        .then(() => collection.findOne(i => i.profession === 'Developer'))
+        .then(res => expect(res).toMatchSnapshot())
+    );
 
-  it('should remove all items', () =>
-    collection.insert(insertItems)
-      .then(() => collection.remove())
-      .then(removed => {
-        expect(removed.length).toEqual(4);
-        return collection.find();
-      })
-      .then(res => {
-        expect(res.length).toEqual(0);
-      })
-  );
+    it('should find one item using a query object', () =>
+      collection.insert(insertItems)
+        .then(() => collection.findOne({ profession: 'Developer' }, { sort: 'age' }))
+        .then(res => expect(res).toMatchSnapshot())
+    );
+  });
 
-  it('should count all items', () =>
-    collection.insert(insertItems)
-      .then(() => collection.count())
-      .then(count => {
-        expect(count).toEqual(4);
-      })
-  );
+  describe('insert()', () => {
+    it('should insert many items', () =>
+      collection.insert(insertItems)
+        .then((inserted) => {
+          expect(inserted).toMatchSnapshot();
+          return collection.find();
+        }).then(allItems => expect(allItems).toMatchSnapshot())
+    );
 
-  it('should count all items with a query', () =>
-    collection.insert(insertItems)
-      .then(() => collection.count(i => i.age < 20))
-      .then(res => {
-        expect(res).toEqual(1);
-      })
-  );
+    it('should not insert many items if not passed an array', () =>
+      collection.insert({ name: 'Sam' })
+        .catch(err => expect(err).toMatchSnapshot())
+    );
+  });
 
-  it('should add listeners', () => {
-    const mockFn = jest.fn();
+  describe('insertOne()', () => {
+    it('should insert one item', () =>
+      collection.insertOne({ name: 'Sally', age: 21, profession: 'Designer' })
+        .then(inserted => {
+          expect(inserted).toMatchSnapshot();
+          return collection.find();
+        })
+        .then(allItems => expect(allItems).toMatchSnapshot())
+    );
+  });
 
-    collection.addListener('beforeSave', mockFn, 'beforeSaveTest');
+  describe('updateOne()', () => {
+    it('should update one item using a filter function', () =>
+      collection.insert(insertItems)
+        .then(() => collection.updateOne(i => i.id === 1, { name: 'Sam' }))
+        .then(updated => expect(updated).toMatchSnapshot())
+    );
 
-    expect(collection.listeners.length).toEqual(1);
-    expect(collection.listeners[0].id).toEqual('beforeSaveTest');
+    it('should update one item using a query object', () =>
+      collection.insert(insertItems)
+        .then(() => collection.updateOne({ name: 'Amie' }, { name: 'Sam' }))
+        .then(res => expect(res).toMatchSnapshot())
+    );
 
-    // Test an invalid event name
-    expect(() => {
-      collection.addListener('not-a-valid-event-name');
-    }).toThrow();
+    it('should error when updating without a query', () =>
+      collection.insert(insertItems)
+        .then(() => collection.updateOne())
+        .catch(err => expect(err).toMatchSnapshot())
+    );
 
-    // Test adding an existing listener
-    expect(() => {
+    it('should error when no items were found to update', () =>
+      collection.insert(insertItems)
+        .then(() => collection.updateOne(i => i.d === 100, { name: 'Sam' }))
+        .catch(err => expect(err).toMatchSnapshot())
+    );
+  });
+
+  describe('removeOne()', () => {
+    it('should remove items', () =>
+      collection.insert(insertItems)
+        .then(() => collection.find())
+        .then(found => {
+          expect(found).toMatchSnapshot();
+          return collection.removeOne(i => i.id === 1);
+        })
+        .then(removed => {
+          expect(removed).toMatchSnapshot();
+          return collection.find();
+        })
+        .then(found => expect(found).toMatchSnapshot())
+    );
+
+    it('should error when trying to remove without a query', () =>
+      collection.insert(insertItems)
+        .then(() => collection.removeOne())
+        .catch(err => expect(err).toMatchSnapshot())
+    );
+
+    it('should error when no items were found to remove', () =>
+      collection.insert(insertItems)
+        .then(() => collection.removeOne(i => i.id === 100))
+        .catch(err => expect(err).toMatchSnapshot())
+    );
+  });
+
+  describe('remove()', () => {
+    it('should remove multiple items', () => {
+      const extraItems = [{ name: 'Nora', age: 40 }, { name: 'Doug', age: 22 }];
+
+      return collection.insert(insertItems.concat(extraItems))
+        .then(() => collection.remove(i => i.age > 21))
+        .then(res => {
+          expect(res).toMatchSnapshot();
+          return collection.find();
+        })
+        .then(res => expect(res).toMatchSnapshot());
+    });
+
+    it('should error when removing non-existing items', () =>
+      collection.insert(insertItems)
+        .then(() => collection.remove(i => i.d > 100))
+        .catch(err => expect(err).toMatchSnapshot())
+    );
+
+    it('should remove all items', () =>
+      collection.insert(insertItems)
+        .then(() => collection.remove())
+        .then(removed => {
+          expect(removed).toMatchSnapshot();
+          return collection.find();
+        })
+        .then(res => expect(res).toMatchSnapshot())
+    );
+  });
+
+  describe('count', () => {
+    it('should count all items', () =>
+      collection.insert(insertItems)
+        .then(() => collection.count())
+        .then(count => expect(count).toMatchSnapshot())
+    );
+
+    it('should count all items with a query', () =>
+      collection.insert(insertItems)
+        .then(() => collection.count(i => i.age < 20))
+        .then(res => expect(res).toMatchSnapshot())
+    );
+  });
+
+  describe('addListener()', () => {
+    it('should add listeners', () => {
+      const mockFn = jest.fn();
+
       collection.addListener('beforeSave', mockFn, 'beforeSaveTest');
-    }).toThrow();
 
-    return collection.insertOne({ name: 'Sam', age: 24 })
-      .then(() => {
-        expect(mockFn).toBeCalledWith({
-          original: {
-            name: 'Sam',
-            age: 24
-          },
-          modified: {
-            name: 'Sam',
-            age: 24,
-            id: 1
-          }
+      expect(collection.listeners).toMatchSnapshot();
+
+      // Test an invalid event name
+      expect(() => {
+        collection.addListener('not-a-valid-event-name');
+      }).toThrow();
+
+      // Test adding an existing listener
+      expect(() => {
+        collection.addListener('beforeSave', mockFn, 'beforeSaveTest');
+      }).toThrow();
+
+      return collection.insertOne({ name: 'Sam', age: 24 })
+        .then(() => {
+          expect(mockFn).toBeCalledWith({
+            original: {
+              name: 'Sam',
+              age: 24
+            },
+            modified: {
+              name: 'Sam',
+              age: 24,
+              id: 1
+            }
+          });
         });
-      });
+    });
   });
 
-  it('should remove listeners', () => {
-    const mockFn = jest.fn();
+  describe('removeListener()', () => {
+    it('should remove listeners', () => {
+      const mockFn = jest.fn();
 
-    collection.addListener('afterSave', mockFn, 'afterSaveTest');
+      collection.addListener('afterSave', mockFn, 'afterSaveTest');
+      expect(collection.listeners).toMatchSnapshot();
 
-    expect(collection.listeners.length).toEqual(1);
-    expect(collection.listeners[0].id).toEqual('afterSaveTest');
-
-    collection.removeListener('afterSaveTest');
-
-    expect(collection.listeners.length).toEqual(0);
+      collection.removeListener('afterSaveTest');
+      expect(collection.listeners).toMatchSnapshot();
+    });
   });
 });

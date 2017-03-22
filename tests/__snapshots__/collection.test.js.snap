@@ -1,6 +1,117 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`the collection should find using a query object with operators 1`] = `
+exports[`the collection addListener() should add listeners 1`] = `
+Array [
+  Object {
+    "eventName": "beforeSave",
+    "id": "beforeSaveTest",
+    "listener": [Function],
+  },
+]
+`;
+
+exports[`the collection count should count all items 1`] = `4`;
+
+exports[`the collection count should count all items with a query 1`] = `1`;
+
+exports[`the collection find() should find and sort all items 1`] = `
+Array [
+  Object {
+    "age": 19,
+    "id": 3,
+    "name": "Lisa",
+    "profession": "Developer",
+    "tags": Array [
+      "react",
+      "node",
+    ],
+  },
+  Object {
+    "age": 21,
+    "id": 2,
+    "name": "John",
+    "profession": "Designer",
+    "tags": Array [
+      "sketch",
+    ],
+  },
+  Object {
+    "age": 21,
+    "id": 4,
+    "name": "Doug",
+    "profession": "Developer",
+  },
+  Object {
+    "age": 22,
+    "id": 1,
+    "name": "Amie",
+    "profession": "Developer",
+    "tags": Array [
+      "react",
+      "pocketdb",
+      "node",
+    ],
+  },
+]
+`;
+
+exports[`the collection find() should find and sort all items in reverse 1`] = `
+Array [
+  Object {
+    "age": 22,
+    "id": 1,
+    "name": "Amie",
+    "profession": "Developer",
+    "tags": Array [
+      "react",
+      "pocketdb",
+      "node",
+    ],
+  },
+  Object {
+    "age": 21,
+    "id": 2,
+    "name": "John",
+    "profession": "Designer",
+    "tags": Array [
+      "sketch",
+    ],
+  },
+  Object {
+    "age": 21,
+    "id": 4,
+    "name": "Doug",
+    "profession": "Developer",
+  },
+  Object {
+    "age": 19,
+    "id": 3,
+    "name": "Lisa",
+    "profession": "Developer",
+    "tags": Array [
+      "react",
+      "node",
+    ],
+  },
+]
+`;
+
+exports[`the collection find() should find using a filter function 1`] = `
+Array [
+  Object {
+    "age": 19,
+    "id": 3,
+    "name": "Lisa",
+    "profession": "Developer",
+    "tags": Array [
+      "react",
+      "node",
+    ],
+  },
+]
+`;
+
+exports[`the collection find() should find using a query object 1`] = `
 Array [
   Object {
     "age": 22,
@@ -16,7 +127,23 @@ Array [
 ]
 `;
 
-exports[`the collection should find using a query object with operators 2`] = `
+exports[`the collection find() should find using a query object with operators 1`] = `
+Array [
+  Object {
+    "age": 22,
+    "id": 1,
+    "name": "Amie",
+    "profession": "Developer",
+    "tags": Array [
+      "react",
+      "pocketdb",
+      "node",
+    ],
+  },
+]
+`;
+
+exports[`the collection find() should find using a query object with operators 2`] = `
 Array [
   Object {
     "age": 22,
@@ -47,7 +174,7 @@ Array [
 ]
 `;
 
-exports[`the collection should find using a query object with operators 3`] = `
+exports[`the collection find() should find using a query object with operators 3`] = `
 Array [
   Object {
     "age": 22,
@@ -73,7 +200,7 @@ Array [
 ]
 `;
 
-exports[`the collection should find using a query object with operators 4`] = `
+exports[`the collection find() should find using a query object with operators 4`] = `
 Array [
   Object {
     "age": 21,
@@ -87,7 +214,7 @@ Array [
 ]
 `;
 
-exports[`the collection should find using a query object with operators 5`] = `
+exports[`the collection find() should find using a query object with operators 5`] = `
 Array [
   Object {
     "age": 21,
@@ -111,7 +238,7 @@ Array [
 ]
 `;
 
-exports[`the collection should find using a query object with operators 6`] = `
+exports[`the collection find() should find using a query object with operators 6`] = `
 Array [
   Object {
     "age": 22,
@@ -125,4 +252,369 @@ Array [
     ],
   },
 ]
+`;
+
+exports[`the collection findOne() should find one item using a filter function 1`] = `
+Object {
+  "age": 22,
+  "id": 1,
+  "name": "Amie",
+  "profession": "Developer",
+  "tags": Array [
+    "react",
+    "pocketdb",
+    "node",
+  ],
+}
+`;
+
+exports[`the collection findOne() should find one item using a query object 1`] = `
+Object {
+  "age": 19,
+  "id": 3,
+  "name": "Lisa",
+  "profession": "Developer",
+  "tags": Array [
+    "react",
+    "node",
+  ],
+}
+`;
+
+exports[`the collection insert() should insert many items 1`] = `
+Array [
+  Object {
+    "age": 22,
+    "id": 1,
+    "name": "Amie",
+    "profession": "Developer",
+    "tags": Array [
+      "react",
+      "pocketdb",
+      "node",
+    ],
+  },
+  Object {
+    "age": 21,
+    "id": 2,
+    "name": "John",
+    "profession": "Designer",
+    "tags": Array [
+      "sketch",
+    ],
+  },
+  Object {
+    "age": 19,
+    "id": 3,
+    "name": "Lisa",
+    "profession": "Developer",
+    "tags": Array [
+      "react",
+      "node",
+    ],
+  },
+  Object {
+    "age": 21,
+    "id": 4,
+    "name": "Doug",
+    "profession": "Developer",
+  },
+]
+`;
+
+exports[`the collection insert() should insert many items 2`] = `
+Array [
+  Object {
+    "age": 22,
+    "id": 1,
+    "name": "Amie",
+    "profession": "Developer",
+    "tags": Array [
+      "react",
+      "pocketdb",
+      "node",
+    ],
+  },
+  Object {
+    "age": 21,
+    "id": 2,
+    "name": "John",
+    "profession": "Designer",
+    "tags": Array [
+      "sketch",
+    ],
+  },
+  Object {
+    "age": 19,
+    "id": 3,
+    "name": "Lisa",
+    "profession": "Developer",
+    "tags": Array [
+      "react",
+      "node",
+    ],
+  },
+  Object {
+    "age": 21,
+    "id": 4,
+    "name": "Doug",
+    "profession": "Developer",
+  },
+]
+`;
+
+exports[`the collection insert() should not insert many items if not passed an array 1`] = `[Error: You must pass a valid array to \`.insert()\`.]`;
+
+exports[`the collection insertOne() should insert one item 1`] = `
+Object {
+  "age": 21,
+  "id": 1,
+  "name": "Sally",
+  "profession": "Designer",
+}
+`;
+
+exports[`the collection insertOne() should insert one item 2`] = `
+Array [
+  Object {
+    "age": 21,
+    "id": 1,
+    "name": "Sally",
+    "profession": "Designer",
+  },
+]
+`;
+
+exports[`the collection remove() should error when removing non-existing items 1`] = `[Error: Didn't find any items to remove.]`;
+
+exports[`the collection remove() should remove all items 1`] = `
+Array [
+  Object {
+    "age": 22,
+    "id": 1,
+    "name": "Amie",
+    "profession": "Developer",
+    "tags": Array [
+      "react",
+      "pocketdb",
+      "node",
+    ],
+  },
+  Object {
+    "age": 21,
+    "id": 2,
+    "name": "John",
+    "profession": "Designer",
+    "tags": Array [
+      "sketch",
+    ],
+  },
+  Object {
+    "age": 19,
+    "id": 3,
+    "name": "Lisa",
+    "profession": "Developer",
+    "tags": Array [
+      "react",
+      "node",
+    ],
+  },
+  Object {
+    "age": 21,
+    "id": 4,
+    "name": "Doug",
+    "profession": "Developer",
+  },
+]
+`;
+
+exports[`the collection remove() should remove all items 2`] = `Array []`;
+
+exports[`the collection remove() should remove multiple items 1`] = `
+Array [
+  Object {
+    "age": 22,
+    "id": 1,
+    "name": "Amie",
+    "profession": "Developer",
+    "tags": Array [
+      "react",
+      "pocketdb",
+      "node",
+    ],
+  },
+  Object {
+    "age": 40,
+    "id": 5,
+    "name": "Nora",
+  },
+  Object {
+    "age": 22,
+    "id": 6,
+    "name": "Doug",
+  },
+]
+`;
+
+exports[`the collection remove() should remove multiple items 2`] = `
+Array [
+  Object {
+    "age": 21,
+    "id": 2,
+    "name": "John",
+    "profession": "Designer",
+    "tags": Array [
+      "sketch",
+    ],
+  },
+  Object {
+    "age": 19,
+    "id": 3,
+    "name": "Lisa",
+    "profession": "Developer",
+    "tags": Array [
+      "react",
+      "node",
+    ],
+  },
+  Object {
+    "age": 21,
+    "id": 4,
+    "name": "Doug",
+    "profession": "Developer",
+  },
+]
+`;
+
+exports[`the collection removeListener() should remove listeners 1`] = `
+Array [
+  Object {
+    "eventName": "afterSave",
+    "id": "afterSaveTest",
+    "listener": [Function],
+  },
+]
+`;
+
+exports[`the collection removeListener() should remove listeners 2`] = `Array []`;
+
+exports[`the collection removeOne() should error when no items were found to remove 1`] = `[Error: Didn't find any items to remove.]`;
+
+exports[`the collection removeOne() should error when trying to remove without a query 1`] = `[Error: You must specify a query to remove an item.]`;
+
+exports[`the collection removeOne() should remove items 1`] = `
+Array [
+  Object {
+    "age": 22,
+    "id": 1,
+    "name": "Amie",
+    "profession": "Developer",
+    "tags": Array [
+      "react",
+      "pocketdb",
+      "node",
+    ],
+  },
+  Object {
+    "age": 21,
+    "id": 2,
+    "name": "John",
+    "profession": "Designer",
+    "tags": Array [
+      "sketch",
+    ],
+  },
+  Object {
+    "age": 19,
+    "id": 3,
+    "name": "Lisa",
+    "profession": "Developer",
+    "tags": Array [
+      "react",
+      "node",
+    ],
+  },
+  Object {
+    "age": 21,
+    "id": 4,
+    "name": "Doug",
+    "profession": "Developer",
+  },
+]
+`;
+
+exports[`the collection removeOne() should remove items 2`] = `
+Object {
+  "age": 22,
+  "id": 1,
+  "name": "Amie",
+  "profession": "Developer",
+  "tags": Array [
+    "react",
+    "pocketdb",
+    "node",
+  ],
+}
+`;
+
+exports[`the collection removeOne() should remove items 3`] = `
+Array [
+  Object {
+    "age": 21,
+    "id": 2,
+    "name": "John",
+    "profession": "Designer",
+    "tags": Array [
+      "sketch",
+    ],
+  },
+  Object {
+    "age": 19,
+    "id": 3,
+    "name": "Lisa",
+    "profession": "Developer",
+    "tags": Array [
+      "react",
+      "node",
+    ],
+  },
+  Object {
+    "age": 21,
+    "id": 4,
+    "name": "Doug",
+    "profession": "Developer",
+  },
+]
+`;
+
+exports[`the collection updateOne() should error when no items were found to update 1`] = `[Error: Didn't find any items to update.]`;
+
+exports[`the collection updateOne() should error when updating without a query 1`] = `[Error: You must specify a query to update an item.]`;
+
+exports[`the collection updateOne() should update one item using a filter function 1`] = `
+Object {
+  "age": 22,
+  "id": 1,
+  "name": "Sam",
+  "profession": "Developer",
+  "tags": Array [
+    "react",
+    "pocketdb",
+    "node",
+  ],
+}
+`;
+
+exports[`the collection updateOne() should update one item using a query object 1`] = `
+Object {
+  "age": 22,
+  "id": 1,
+  "name": "Sam",
+  "profession": "Developer",
+  "tags": Array [
+    "react",
+    "pocketdb",
+    "node",
+  ],
+}
 `;
