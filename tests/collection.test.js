@@ -84,6 +84,12 @@ describe('the collection', () => {
         .then(res => expect(res).toMatchSnapshot())
     );
 
+    it('should find with a skip and limit', () =>
+      collection.insert(insertItems)
+        .then(() => collection.find({}, { limit: 2, skip: 1 }))
+        .then(res => expect(res).toMatchSnapshot())
+    );
+
     it('should find using a filter function', () =>
       collection.insert(insertItems)
         .then(() => collection.find(i => i.age < 21))
@@ -123,6 +129,22 @@ describe('the collection', () => {
     it('should find one item using a query object', () =>
       collection.insert(insertItems)
         .then(() => collection.findOne({ profession: 'Developer' }, { sort: 'age' }))
+        .then(res => expect(res).toMatchSnapshot())
+    );
+
+    it('should find one item using a query object with operators', () =>
+      collection.insert(insertItems)
+        .then(() => collection.findOne({ age: { $gt: 21, $lt: 23 } }))
+        .then(res => expect(res).toMatchSnapshot())
+        .then(() => collection.findOne({ age: { $gte: 21, $lte: 25 } }))
+        .then(res => expect(res).toMatchSnapshot())
+        .then(() => collection.findOne({ age: { $ne: 21 } }))
+        .then(res => expect(res).toMatchSnapshot())
+        .then(() => collection.findOne({ tags: { $in: 'sketch' } }))
+        .then(res => expect(res).toMatchSnapshot())
+        .then(() => collection.findOne({ tags: { $nin: 'pocketdb' } }))
+        .then(res => expect(res).toMatchSnapshot())
+        .then(() => collection.findOne({ tags: { $length: 3 } }))
         .then(res => expect(res).toMatchSnapshot())
     );
   });

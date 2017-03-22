@@ -254,6 +254,30 @@ Array [
 ]
 `;
 
+exports[`the collection find() should find with a skip and limit 1`] = `
+Array [
+  Object {
+    "age": 21,
+    "id": 2,
+    "name": "John",
+    "profession": "Designer",
+    "tags": Array [
+      "sketch",
+    ],
+  },
+  Object {
+    "age": 19,
+    "id": 3,
+    "name": "Lisa",
+    "profession": "Developer",
+    "tags": Array [
+      "react",
+      "node",
+    ],
+  },
+]
+`;
+
 exports[`the collection findOne() should find one item using a filter function 1`] = `
 Object {
   "age": 22,
@@ -276,6 +300,86 @@ Object {
   "profession": "Developer",
   "tags": Array [
     "react",
+    "node",
+  ],
+}
+`;
+
+exports[`the collection findOne() should find one item using a query object with operators 1`] = `
+Object {
+  "age": 22,
+  "id": 1,
+  "name": "Amie",
+  "profession": "Developer",
+  "tags": Array [
+    "react",
+    "pocketdb",
+    "node",
+  ],
+}
+`;
+
+exports[`the collection findOne() should find one item using a query object with operators 2`] = `
+Object {
+  "age": 22,
+  "id": 1,
+  "name": "Amie",
+  "profession": "Developer",
+  "tags": Array [
+    "react",
+    "pocketdb",
+    "node",
+  ],
+}
+`;
+
+exports[`the collection findOne() should find one item using a query object with operators 3`] = `
+Object {
+  "age": 22,
+  "id": 1,
+  "name": "Amie",
+  "profession": "Developer",
+  "tags": Array [
+    "react",
+    "pocketdb",
+    "node",
+  ],
+}
+`;
+
+exports[`the collection findOne() should find one item using a query object with operators 4`] = `
+Object {
+  "age": 21,
+  "id": 2,
+  "name": "John",
+  "profession": "Designer",
+  "tags": Array [
+    "sketch",
+  ],
+}
+`;
+
+exports[`the collection findOne() should find one item using a query object with operators 5`] = `
+Object {
+  "age": 21,
+  "id": 2,
+  "name": "John",
+  "profession": "Designer",
+  "tags": Array [
+    "sketch",
+  ],
+}
+`;
+
+exports[`the collection findOne() should find one item using a query object with operators 6`] = `
+Object {
+  "age": 22,
+  "id": 1,
+  "name": "Amie",
+  "profession": "Developer",
+  "tags": Array [
+    "react",
+    "pocketdb",
     "node",
   ],
 }
