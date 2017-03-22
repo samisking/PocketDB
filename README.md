@@ -82,7 +82,9 @@ collection.insert(items).then(insertedItems => {});
 Find all items that match a certain query object or [.filter() callback](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter#Parameters). If you supply a `{query}` object, only items that match _all_ of the key/value pairs in your `{query}` will be returned. If a query isn't specified, or it's empty, then all items in the collection are returned.
 
 You can also pass options to the query. Currently the supported options are:
-- `sort: '(-)key'`: This will sort the items returned by the key you provide. If your key starts with `-` then the order will be reversed.
+- `sort: String`: This will sort the items by the name of the key you provide. If your key starts with `-` then the order will be reversed.
+- `limit: Number`: This will limit the number of results you'll get back.
+- `skip: Number`: This will cut the number of results specified from the front of the array you get back.
 
 ```js
 // If our collection.items looked like this…
@@ -117,10 +119,10 @@ collection.find({ profession: 'Developer' }, { sort: 'age' }).then(result => {
   // ]
 });
 
-collection.find({ profession: 'Developer' }, { sort: '-age' }).then(result => {
+collection.find({} { limit: 2, skip: 3 }).then(result => {
   // result = [
-  //   { id: 2, name: 'Lisa', age: 28, profession: 'Developer' },
-  //   { id: 3, name: 'Amie', age: 22, profession: 'Developer' }
+  //   { id: 4, name: 'Doug', age: 34, profession: 'Designer' },
+  //   { id: 5, name: 'Nora', age: 67, profession: 'Retired' },
   // ]
 });
 
@@ -137,9 +139,72 @@ collection.find(item => item.age > 25).then(result => {
 });
 ```
 
+###### Find operators
+
+You can use operators in your `{query}` similar to Mongo. They can be combined to make more complex queries. Only items that match all operators will be returned. The supported operators are:
+
+- `$gt`: Greater than the value you specify. Works on anything that can be compared with `>`.
+- `$gte`: Greater than or equal to the value you specify. Works on anything that can be compared with `>=`.
+- `$lt`: Less than the value you specify. Works on anything that can be compared with `<`.
+- `$lte`: Less than or equal to the value you specify. Works on anything that can be compared with `<=`.
+- `$ne`: Not equal to the value you specify. Works on anything that can be compared with `!==`.
+- `$in`: Includes the value you specify. Only works on `Array`s.
+- `$nin`: Doesn't include the value you specify. Only works on `Array`s.
+- `$length`: Length matches the value you specify. Only works on `Array`s.
+
+```js
+// items = [
+//   { id: 1, name: 'Amie', age: 22, profession: 'Developer', tags: ['react', 'pocketdb', 'node'] },
+//   { id: 2, name: 'John', age: 21, profession: 'Designer', tags: ['sketch'] },
+//   { id: 3, name: 'Lisa', age: 19, profession: 'Developer', tags: ['react', 'node'] },
+//   { id: 4, name: 'Doug', age: 21, profession: 'Developer' }
+// ]
+collection.find({ age: { $gt: 21, $lt: 23 } })).then(result => {
+  // result = [
+  //   { id: 1, ... }
+  // ]
+});
+
+collection.find({ age: { $gte: 21, $lte: 25 } })).then(result => {
+  // result = [
+  //   { id: 1, ... }
+  //   { id: 2, ... }
+  //   { id: 4, ... }
+  // ]
+});
+
+collection.find({ age: { $ne: 21 } })).then(result => {
+  // result = [
+  //   { id: 1, ... }
+  //   { id: 3, ... }
+  // ]
+});
+
+collection.find({ tags: { $in: 'sketch' } })).then(result => {
+  // result = [
+  //   { id: 2, ... }
+  // ]
+});
+
+collection.find({ tags: { $nin: 'pocketdb' } })).then(result => {
+  // result = [
+  //   { id: 2, ... }
+  //   { id: 3, ... }
+  // ]
+});
+
+collection.find({ tags: { $length: 3 } })).then(result => {
+  // result = [
+  //   { id: 1, ... }
+  // ]
+});
+```
+
 **collection.findOne(({query} || Function), {options})** | _Returns a Promise with the found item_
 
 This is the same as `collection.find()` but it just returns the first result.
+
+_Note:_ The `limit` option will have no affect, but the `sort` and `skip` options will.
 
 ### Updating Items
 
