@@ -1,3 +1,27 @@
+## 1.2.0 (2017-01-17)
+
+Features:
+
+ - Minor version bump.
+ - Add ability to limit and skip find results. Check out the `README.md`.
+ - Add ability to use Mongo style operators in query objects. Check out the `README.md`.
+ - Use ES2015 in source code and tests.
+ - Export ES and CJS bundles.
+
+## 1.1.8 (2017-01-17)
+
+Features:
+
+ - Patch version bump.
+ - Fix for actually updating collections.
+
+## 1.1.7 (2016-11-09)
+
+Features:
+
+ - Patch version bump.
+ - Adds a dependency on `atomic-write` to make sure there are no write conflicts.
+
 ## 1.1.6 (2016-11-07)
 
 Features:

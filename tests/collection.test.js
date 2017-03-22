@@ -1,6 +1,6 @@
-const fs = require('fs');
-const path = require('path');
-const { PocketDB, Collection } = require('../lib');
+import fs from 'fs';
+import path from 'path';
+import { PocketDB, Collection } from '../src';
 
 // A mock db that gets removed after every test
 const dbPath = path.resolve(__dirname, 'test-collection');
@@ -41,7 +41,7 @@ let testIndex = 0;
 beforeEach(() => {
   jest.resetModules();
 
-  testIndex++;
+  testIndex += 1;
   collection = new Collection(db, `${collectionName}-${testIndex}`);
 });
 
@@ -167,7 +167,7 @@ describe('the collection', () => {
   describe('insertOne()', () => {
     it('should insert one item', () =>
       collection.insertOne({ name: 'Sally', age: 21, profession: 'Designer' })
-        .then(inserted => {
+        .then((inserted) => {
           expect(inserted).toMatchSnapshot();
           return collection.find();
         })
@@ -205,11 +205,11 @@ describe('the collection', () => {
     it('should remove items', () =>
       collection.insert(insertItems)
         .then(() => collection.find())
-        .then(found => {
+        .then((found) => {
           expect(found).toMatchSnapshot();
           return collection.removeOne(i => i.id === 1);
         })
-        .then(removed => {
+        .then((removed) => {
           expect(removed).toMatchSnapshot();
           return collection.find();
         })
@@ -235,7 +235,7 @@ describe('the collection', () => {
 
       return collection.insert(insertItems.concat(extraItems))
         .then(() => collection.remove(i => i.age > 21))
-        .then(res => {
+        .then((res) => {
           expect(res).toMatchSnapshot();
           return collection.find();
         })
@@ -251,7 +251,7 @@ describe('the collection', () => {
     it('should remove all items', () =>
       collection.insert(insertItems)
         .then(() => collection.remove())
-        .then(removed => {
+        .then((removed) => {
           expect(removed).toMatchSnapshot();
           return collection.find();
         })

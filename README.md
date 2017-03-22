@@ -7,8 +7,10 @@
 ## Install
 
 ```
-npm install --save pocketdb
+yarn install --save pocketdb
 ```
+
+The packages include ES modules for Webpack 2 and Rollup, and CommonJS modules for Node > 6.
 
 You can then require/import it in your project, and create a new DB at a given path.
 

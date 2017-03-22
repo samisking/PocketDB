@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 const _getCollectionData = Symbol('getCollectionData');
 const _defaultCollectionData = Symbol('defaultCollectionData');
@@ -62,6 +62,4 @@ class PocketDB {
   }
 }
 
-module.exports = {
-  PocketDB
-};
+export default PocketDB;

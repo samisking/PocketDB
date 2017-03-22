@@ -1,5 +1,5 @@
-const atomic = require('atomic-write');
-const { PocketDB } = require('./pocketdb');
+import atomic from 'atomic-write';
+import PocketDB from './pocketdb';
 
 const _queryItems = Symbol('queryItems');
 const _findWithOptions = Symbol('findWithOptions');
@@ -360,7 +360,7 @@ class Collection {
     }
 
     // Search for and return the items that match the query object
-    return items.filter(item => {
+    return items.filter((item) => {
       let matches = 0;
 
       // Check if any of the key/values in the query match any the items key/values
@@ -476,6 +476,4 @@ class Collection {
   }
 }
 
-module.exports = {
-  Collection
-};
+export default Collection;

@@ -1,6 +1,6 @@
-const fs = require('fs');
-const path = require('path');
-const { PocketDB, Collection } = require('../lib');
+import fs from 'fs';
+import path from 'path';
+import { PocketDB, Collection } from '../src';
 
 // A mock db that gets removed after every test
 const dbPath = path.resolve(__dirname, 'test-db');
@@ -19,7 +19,7 @@ let testIndex = 0;
 beforeEach(() => {
   jest.resetModules();
 
-  testIndex++;
+  testIndex += 1;
   testCollectionName = `${collectionName}-${testIndex}`;
   collection = new Collection(db, testCollectionName);
 });
