@@ -5,7 +5,7 @@ Array [
   Object {
     "eventName": "beforeSave",
     "id": "beforeSaveTest",
-    "listener": [Function],
+    "listener": [MockFunction],
   },
 ]
 `;
@@ -595,7 +595,7 @@ Array [
   Object {
     "eventName": "afterSave",
     "id": "afterSaveTest",
-    "listener": [Function],
+    "listener": [MockFunction],
   },
 ]
 `;

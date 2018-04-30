@@ -181,7 +181,7 @@ class Collection {
       return Promise.reject(new Error('You must specify a query to update an item.'));
     }
 
-    const items = this._collection.items;
+    const { items } = this._collection;
     const queryResult = this[_queryItems](query, items)[0];
 
     // If it didn't find any items to update, then reject
@@ -236,7 +236,7 @@ class Collection {
    * @return {Promise}                The items that were removed.
    */
   remove(query) {
-    const items = this._collection.items;
+    const { items } = this._collection;
 
     if (!query) {
       this._collection.items = [];
@@ -271,7 +271,7 @@ class Collection {
       return Promise.reject(new Error('You must specify a query to remove an item.'));
     }
 
-    const items = this._collection.items;
+    const { items } = this._collection;
     const queryResult = this[_queryItems](query, items)[0];
 
     if (!queryResult || !queryResult.id) {
@@ -300,9 +300,7 @@ class Collection {
    */
   addListener(eventName, listener, id) {
     if (!this.events.includes(eventName)) {
-      throw new Error(
-        `${eventName} is not a valid event name. Event names are: ${this.events.join(', ')}`
-      );
+      throw new Error(`${eventName} is not a valid event name. Event names are: ${this.events.join(', ')}`);
     }
 
     if (this.listeners.find(l => (l.id === id && l.eventName === eventName))) {
@@ -312,7 +310,7 @@ class Collection {
     this.listeners.push({
       eventName,
       listener,
-      id
+      id,
     });
   }
 

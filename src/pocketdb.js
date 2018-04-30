@@ -57,7 +57,7 @@ class PocketDB {
     return {
       name: collectionName,
       nextID: 1,
-      items: []
+      items: [],
     };
   }
 }

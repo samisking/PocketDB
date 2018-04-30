@@ -13,25 +13,25 @@ const insertItems = [
     name: 'Amie',
     age: 22,
     profession: 'Developer',
-    tags: ['react', 'pocketdb', 'node']
+    tags: ['react', 'pocketdb', 'node'],
   },
   {
     name: 'John',
     age: 21,
     profession: 'Designer',
-    tags: ['sketch']
+    tags: ['sketch'],
   },
   {
     name: 'Lisa',
     age: 19,
     profession: 'Developer',
-    tags: ['react', 'node']
+    tags: ['react', 'node'],
   },
   {
     name: 'Doug',
     age: 21,
-    profession: 'Developer'
-  }
+    profession: 'Developer',
+  },
 ];
 
 let collection;
@@ -75,32 +75,27 @@ describe('the collection', () => {
     it('should find and sort all items', () =>
       collection.insert(insertItems)
         .then(() => collection.find({}, { sort: 'age' }))
-        .then(res => expect(res).toMatchSnapshot())
-    );
+        .then(res => expect(res).toMatchSnapshot()));
 
     it('should find and sort all items in reverse', () =>
       collection.insert(insertItems)
         .then(() => collection.find({}, { sort: '-age' }))
-        .then(res => expect(res).toMatchSnapshot())
-    );
+        .then(res => expect(res).toMatchSnapshot()));
 
     it('should find with a skip and limit', () =>
       collection.insert(insertItems)
         .then(() => collection.find({}, { limit: 2, skip: 1 }))
-        .then(res => expect(res).toMatchSnapshot())
-    );
+        .then(res => expect(res).toMatchSnapshot()));
 
     it('should find using a filter function', () =>
       collection.insert(insertItems)
         .then(() => collection.find(i => i.age < 21))
-        .then(res => expect(res).toMatchSnapshot())
-    );
+        .then(res => expect(res).toMatchSnapshot()));
 
     it('should find using a query object', () =>
       collection.insert(insertItems)
         .then(() => collection.find({ name: 'Amie' }))
-        .then(res => expect(res).toMatchSnapshot())
-    );
+        .then(res => expect(res).toMatchSnapshot()));
 
     it('should find using a query object with operators', () =>
       collection.insert(insertItems)
@@ -115,22 +110,19 @@ describe('the collection', () => {
         .then(() => collection.find({ tags: { $nin: 'pocketdb' } }))
         .then(res => expect(res).toMatchSnapshot())
         .then(() => collection.find({ tags: { $length: 3 } }))
-        .then(res => expect(res).toMatchSnapshot())
-    );
+        .then(res => expect(res).toMatchSnapshot()));
   });
 
   describe('findOne()', () => {
     it('should find one item using a filter function', () =>
       collection.insert(insertItems)
         .then(() => collection.findOne(i => i.profession === 'Developer'))
-        .then(res => expect(res).toMatchSnapshot())
-    );
+        .then(res => expect(res).toMatchSnapshot()));
 
     it('should find one item using a query object', () =>
       collection.insert(insertItems)
         .then(() => collection.findOne({ profession: 'Developer' }, { sort: 'age' }))
-        .then(res => expect(res).toMatchSnapshot())
-    );
+        .then(res => expect(res).toMatchSnapshot()));
 
     it('should find one item using a query object with operators', () =>
       collection.insert(insertItems)
@@ -145,8 +137,7 @@ describe('the collection', () => {
         .then(() => collection.findOne({ tags: { $nin: 'pocketdb' } }))
         .then(res => expect(res).toMatchSnapshot())
         .then(() => collection.findOne({ tags: { $length: 3 } }))
-        .then(res => expect(res).toMatchSnapshot())
-    );
+        .then(res => expect(res).toMatchSnapshot()));
   });
 
   describe('insert()', () => {
@@ -155,13 +146,11 @@ describe('the collection', () => {
         .then((inserted) => {
           expect(inserted).toMatchSnapshot();
           return collection.find();
-        }).then(allItems => expect(allItems).toMatchSnapshot())
-    );
+        }).then(allItems => expect(allItems).toMatchSnapshot()));
 
     it('should not insert many items if not passed an array', () =>
       collection.insert({ name: 'Sam' })
-        .catch(err => expect(err).toMatchSnapshot())
-    );
+        .catch(err => expect(err).toMatchSnapshot()));
   });
 
   describe('insertOne()', () => {
@@ -171,34 +160,29 @@ describe('the collection', () => {
           expect(inserted).toMatchSnapshot();
           return collection.find();
         })
-        .then(allItems => expect(allItems).toMatchSnapshot())
-    );
+        .then(allItems => expect(allItems).toMatchSnapshot()));
   });
 
   describe('updateOne()', () => {
     it('should update one item using a filter function', () =>
       collection.insert(insertItems)
         .then(() => collection.updateOne(i => i.id === 1, { name: 'Sam' }))
-        .then(updated => expect(updated).toMatchSnapshot())
-    );
+        .then(updated => expect(updated).toMatchSnapshot()));
 
     it('should update one item using a query object', () =>
       collection.insert(insertItems)
         .then(() => collection.updateOne({ name: 'Amie' }, { name: 'Sam' }))
-        .then(res => expect(res).toMatchSnapshot())
-    );
+        .then(res => expect(res).toMatchSnapshot()));
 
     it('should error when updating without a query', () =>
       collection.insert(insertItems)
         .then(() => collection.updateOne())
-        .catch(err => expect(err).toMatchSnapshot())
-    );
+        .catch(err => expect(err).toMatchSnapshot()));
 
     it('should error when no items were found to update', () =>
       collection.insert(insertItems)
         .then(() => collection.updateOne(i => i.d === 100, { name: 'Sam' }))
-        .catch(err => expect(err).toMatchSnapshot())
-    );
+        .catch(err => expect(err).toMatchSnapshot()));
   });
 
   describe('removeOne()', () => {
@@ -213,20 +197,17 @@ describe('the collection', () => {
           expect(removed).toMatchSnapshot();
           return collection.find();
         })
-        .then(found => expect(found).toMatchSnapshot())
-    );
+        .then(found => expect(found).toMatchSnapshot()));
 
     it('should error when trying to remove without a query', () =>
       collection.insert(insertItems)
         .then(() => collection.removeOne())
-        .catch(err => expect(err).toMatchSnapshot())
-    );
+        .catch(err => expect(err).toMatchSnapshot()));
 
     it('should error when no items were found to remove', () =>
       collection.insert(insertItems)
         .then(() => collection.removeOne(i => i.id === 100))
-        .catch(err => expect(err).toMatchSnapshot())
-    );
+        .catch(err => expect(err).toMatchSnapshot()));
   });
 
   describe('remove()', () => {
@@ -245,8 +226,7 @@ describe('the collection', () => {
     it('should error when removing non-existing items', () =>
       collection.insert(insertItems)
         .then(() => collection.remove(i => i.d > 100))
-        .catch(err => expect(err).toMatchSnapshot())
-    );
+        .catch(err => expect(err).toMatchSnapshot()));
 
     it('should remove all items', () =>
       collection.insert(insertItems)
@@ -255,22 +235,19 @@ describe('the collection', () => {
           expect(removed).toMatchSnapshot();
           return collection.find();
         })
-        .then(res => expect(res).toMatchSnapshot())
-    );
+        .then(res => expect(res).toMatchSnapshot()));
   });
 
   describe('count', () => {
     it('should count all items', () =>
       collection.insert(insertItems)
         .then(() => collection.count())
-        .then(count => expect(count).toMatchSnapshot())
-    );
+        .then(count => expect(count).toMatchSnapshot()));
 
     it('should count all items with a query', () =>
       collection.insert(insertItems)
         .then(() => collection.count(i => i.age < 20))
-        .then(res => expect(res).toMatchSnapshot())
-    );
+        .then(res => expect(res).toMatchSnapshot()));
   });
 
   describe('addListener()', () => {
@@ -296,13 +273,13 @@ describe('the collection', () => {
           expect(mockFn).toBeCalledWith({
             original: {
               name: 'Sam',
-              age: 24
+              age: 24,
             },
             modified: {
               name: 'Sam',
               age: 24,
-              id: 1
-            }
+              id: 1,
+            },
           });
         });
     });
